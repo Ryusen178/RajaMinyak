@@ -12,4 +12,23 @@ function logout() {
   localStorage.removeItem('rajaMinyakLoggedIn');
   window.location.href = 'login.html';
 }
+function login() {
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value.trim();  // sebelumnya salah pakai "email"
+  const errorMsg = document.getElementById('errorMsg');
+
+  if (username === 'admin' && password === 'admin123') {
+    localStorage.setItem('name', username);  // simpan dengan key "name"
+    localStorage.setItem('email', username + '@rajaminyak.com');
+    localStorage.setItem('rajaMinyakLoggedIn', 'true');
+    window.location.href = 'index.html';
+  } else if (username === 'user' && password === 'user123') {
+    localStorage.setItem('name', username);
+    localStorage.setItem('email', username + '@rajaminyak.com');
+    localStorage.setItem('rajaMinyakLoggedIn', 'true');
+    window.location.href = 'index.html';
+  } else {
+    errorMsg.textContent = 'Username atau password salah!';
+  }
+}
 

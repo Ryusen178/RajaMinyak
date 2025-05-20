@@ -56,32 +56,6 @@
     <button onclick="login()">Login</button>
     <div class="error" id="errorMsg"></div>
   </div>
-
-  <script>
-  function login() {
-    const username = document.getElementById('username').value.trim();
-    const email = document.getElementById('email').value.trim();  // perbaikan: gunakan email
-    const errorMsg = document.getElementById('errorMsg');
-
-    if (username === 'admin' && email === 'admin@gmail.com') {
-      localStorage.setItem('name', username);
-      localStorage.setItem('email', email);
-      localStorage.setItem('rajaMinyakLoggedIn', 'true');
-      window.location.href = 'index.html';
-    } else if (username === 'user' && email === 'user@gmail.com') {
-      localStorage.setItem('name', username);
-      localStorage.setItem('email', email);
-      localStorage.setItem('rajaMinyakLoggedIn', 'true');
-      window.location.href = 'index.html';
-    } else {
-      errorMsg.textContent = 'Username atau email salah!';
-    }
-  }
-  // Auto-redirect jika sudah login
-  if (localStorage.getItem('rajaMinyakLoggedIn') === 'true') {
-    window.location.href = 'index.html';
-  }
-</script>
 </body>
 </html>
 

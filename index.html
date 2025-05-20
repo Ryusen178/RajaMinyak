@@ -5,7 +5,7 @@
   <link rel="stylesheet" href="styles.css">
   <script>
     // Script cek login
-    if (!localStorage.getItem("name") || !localStorage.getItem("email") || localStorage.getItem('rajaMinyakLoggedIn') !== 'true') {
+    if (!localStorage.getItem("username") || !localStorage.getItem("email") || localStorage.getItem('rajaMinyakLoggedIn') !== 'true') {
       window.location.href = "login.html";
     }
 
@@ -23,7 +23,7 @@
 
     // Logout function
     function logout() {
-      localStorage.removeItem("name");
+      localStorage.removeItem("username");
       localStorage.removeItem("email");
       localStorage.removeItem("rajaMinyakLoggedIn");
       window.location.href = "login.html";

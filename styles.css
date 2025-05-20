@@ -79,18 +79,3 @@ button {
 .popup.show {
   display: flex;
 }
-.logout-button {
-  position: fixed;
-  bottom: 20px;  /* pindahkan ke bawah */
-  right: 20px;   /* tetap kanan */
-  padding: 8px 15px;
-  background: #ff4444;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-  z-index: 1000;
-  font-size: 14px;
-padding: 6px 12px;
-}
-

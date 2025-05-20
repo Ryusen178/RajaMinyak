@@ -83,5 +83,11 @@
   <div id="popup" class="popup" onclick="closePopup()">
     <img id="popup-img" src="">
   </div>
+  <script>
+  // Cek status login, jika tidak ada redirect ke login.html
+  if(localStorage.getItem('rajaMinyakLoggedIn') !== 'true') {
+    window.location.href = 'login.html';
+  }
+</script>
 </body>
 </html>

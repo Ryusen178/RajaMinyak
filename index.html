@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-</header>
   <title>RajaMinyak - Top Up Game</title>
   <link rel="stylesheet" href="styles.css">
   <script>
     // Script cek login
-    if (!localStorage.getItem("name") || !localStorage.getItem("email")) {
+    if (!localStorage.getItem("name") || !localStorage.getItem("email") || localStorage.getItem('rajaMinyakLoggedIn') !== 'true') {
       window.location.href = "login.html";
     }
 
@@ -21,9 +20,16 @@
     function closePopup() {
       document.getElementById("popup").style.display = "none";
     }
+
+    // Logout function
+    function logout() {
+      localStorage.removeItem("name");
+      localStorage.removeItem("email");
+      localStorage.removeItem("rajaMinyakLoggedIn");
+      window.location.href = "login.html";
+    }
   </script>
   <style>
-    /* Gaya untuk popup gambar */
     .popup {
       display: none;
       position: fixed;
@@ -40,17 +46,28 @@
       border-radius: 10px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
     }
+    .logout-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 8px 15px;
+      background: #ff4444;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      z-index: 1000;
+    }
   </style>
 </head>
-  <header>
-  <h1>RajaMinyak</h1>
-  <p>Top Up Game Favorit Kamu di Sini!</p>
-  <button onclick="logout()" style="position:absolute; top:20px; right:20px; padding:8px 15px; background:#ff4444; border:none; border-radius:5px; color:white; cursor:pointer;">Logout</button>
 <body>
+  <button onclick="logout()" class="logout-button">Logout</button>
+
   <header>
     <h1>RajaMinyak</h1>
     <p>Top Up Game Favorit Kamu di Sini!</p>
   </header>
+
   <main>
     <div class="game-list">
       <div class="game-card" onclick="location.href='genshin.html'">
@@ -84,15 +101,8 @@
     </div>
   </main>
 
-  <!-- Popup Image Viewer -->
   <div id="popup" class="popup" onclick="closePopup()">
     <img id="popup-img" src="">
   </div>
-  <script>
-  // Cek status login, jika tidak ada redirect ke login.html
-  if(localStorage.getItem('rajaMinyakLoggedIn') !== 'true') {
-    window.location.href = 'login.html';
-  }
-</script>
 </body>
 </html>

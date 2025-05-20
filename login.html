@@ -65,18 +65,11 @@
 
       // Contoh validasi sederhana (username: admin, password: 12345)
       if (username === 'admin' && password === '12345') {
-        // Simpan status login ke localStorage
-        localStorage.setItem('rajaMinyakLoggedIn', 'true');
-        // Redirect ke index.html
-        window.location.href = 'index.html';
-      } else {
-        errorMsg.textContent = 'Username atau password salah!';
-      }
-    }
-
-    // Kalau sudah login, langsung redirect ke index.html
-    if(localStorage.getItem('rajaMinyakLoggedIn') === 'true') {
-      window.location.href = 'index.html';
+  localStorage.setItem('name', username);
+  localStorage.setItem('email', username + '@rajaminyak.com'); // atau email dummy
+  localStorage.setItem('rajaMinyakLoggedIn', 'true');
+  window.location.href = 'index.html';
+}
     }
   </script>
 </body>

@@ -1,15 +1,61 @@
 
+
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+  <meta charset="UTF-8">
   <title>Pembayaran Berhasil</title>
-  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      margin: 0;
+      background: #0c0f2c;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      text-decoration: none;
+      font-size: 18px;
+      background: #00ff99;
+      color: black;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      box-shadow: 0 2px 10px rgba(0,255,153,0.3);
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <header><h1>Pembayaran Sukses!</h1></header>
-  <main>
-    <p>Top up berhasil! Silakan cek akun game Anda.</p>
-    <a href="index.html"><button>Kembali ke Beranda</button></a>
-  </main>
+
+<a href="index.html" class="back-button hidden" id="backBtn">← Kembali ke Beranda</a>
+
+<script>
+  // Play success sound
+  const audio = new Audio('success.mp3');
+  audio.play();
+
+  // Show SweetAlert2 popup
+  Swal.fire({
+    title: 'Pembayaran Berhasil!',
+    text: 'Top up kamu telah diproses. Silakan cek akun game kamu sekarang.',
+    icon: 'success',
+    confirmButtonText: 'Kembali ke Beranda',
+    background: '#1e1e2f',
+    color: '#ffffff',
+    confirmButtonColor: '#00ff99',
+    allowOutsideClick: false,
+    customClass: {
+      popup: 'swal2-rounded'
+    }
+  }).then(() => {
+    window.location.href = "index.html";
+  });
+</script>
+
 </body>
 </html>

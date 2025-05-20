@@ -8,3 +8,8 @@ function showPopup(src) {
 function closePopup() {
   document.getElementById('popup').classList.remove('show');
 }
+function logout() {
+  localStorage.removeItem('rajaMinyakLoggedIn');
+  window.location.href = 'login.html';
+}
+

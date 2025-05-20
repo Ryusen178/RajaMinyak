@@ -22,7 +22,7 @@ main {
   justify-content: center;
 }
 .game-card {
-  background-color: white;
+  background-color: black;
   border-radius: 10px;
   width: 200px;
   text-align: center;

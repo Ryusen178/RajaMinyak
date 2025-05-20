@@ -1,78 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login Simulasi</title>
+  <title>RajaMinyak - Top Up Game</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Script cek login
+    if (!localStorage.getItem("name") || !localStorage.getItem("email")) {
+      window.location.href = "login.html";
+    }
+
+    // Script popup gambar
+    function showPopup(imageSrc) {
+      const popup = document.getElementById("popup");
+      const popupImg = document.getElementById("popup-img");
+      popupImg.src = imageSrc;
+      popup.style.display = "flex";
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+  </script>
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: #f0f2f5;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    /* Gaya untuk popup gambar */
     .popup {
-      background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      width: 300px;
-      text-align: center;
-      animation: popIn 0.4s ease;
+      display: none;
+      position: fixed;
+      z-index: 999;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
     }
-    h2 {
-      margin-bottom: 20px;
-    }
-    input[type="text"],
-    input[type="email"] {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-    button {
-      padding: 10px 20px;
-      background-color: #4caf50;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #43a047;
-    }
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
+    .popup img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
     }
   </style>
 </head>
 <body>
-  <div class="popup">
-    <h2>Login Simulasi</h2>
-    <form id="login-form">
-      <input type="text" id="name" name="name" placeholder="Nama Anda" required><br>
-      <input type="email" id="email" name="email" placeholder="Email Anda" required><br>
-      <button type="submit">Masuk</button>
-    </form>
-  </div>
+  <header>
+    <h1>RajaMinyak</h1>
+    <p>Top Up Game Favorit Kamu di Sini!</p>
+  </header>
+  <main>
+    <div class="game-list">
+      <div class="game-card" onclick="location.href='genshin.html'">
+        <img src="genshin.jpg" onclick="event.stopPropagation(); showPopup('genshin.jpg')" />
+        <h3>Genshin Impact</h3>
+      </div>
+      <div class="game-card" onclick="location.href='deltaforce.html'">
+        <img src="deltaforce.jpg" onclick="event.stopPropagation(); showPopup('deltaforce.jpg')" />
+        <h3>Delta Force</h3>
+      </div>
+      <div class="game-card" onclick="location.href='honkai.html'">
+        <img src="honkai.jpg" onclick="event.stopPropagation(); showPopup('honkai.jpg')" />
+        <h3>Honkai Impact</h3>
+      </div>
+      <div class="game-card" onclick="location.href='freefire.html'">
+        <img src="freefire.jpg" onclick="event.stopPropagation(); showPopup('freefire.jpg')" />
+        <h3>Free Fire</h3>
+      </div>
+      <div class="game-card" onclick="location.href='pubgmobile.html'">
+        <img src="pubg.jpg" onclick="event.stopPropagation(); showPopup('pubg.jpg')" />
+        <h3>Pubg Mobile</h3>
+      </div>
+      <div class="game-card" onclick="location.href='hok.html'">
+        <img src="hok.jpg" onclick="event.stopPropagation(); showPopup('hok.jpg')" />
+        <h3>Honor of Kings</h3>
+      </div>
+      <div class="game-card" onclick="location.href='roblox.html'">
+        <img src="roblox.jpg" onclick="event.stopPropagation(); showPopup('roblox.jpg')" />
+        <h3>Roblox</h3>
+      </div>
+    </div>
+  </main>
 
-  <script>
-    document.getElementById("login-form").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const name = document.getElementById("name").value;
-      const email = document.getElementById("email").value;
-      localStorage.setItem("name", name);
-      localStorage.setItem("email", email);
-      window.location.href = "main.html";
-    });
-  </script>
+  <!-- Popup Image Viewer -->
+  <div id="popup" class="popup" onclick="closePopup()">
+    <img id="popup-img" src="">
+  </div>
 </body>
 </html>

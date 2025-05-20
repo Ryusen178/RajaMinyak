@@ -58,20 +58,31 @@
   </div>
 
   <script>
-    function login() {
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const errorMsg = document.getElementById('errorMsg');
+  function login() {
+    const username = document.getElementById('username').value.trim();
+    const email = document.getElementById('email').value.trim();  // perbaikan: gunakan email
+    const errorMsg = document.getElementById('errorMsg');
 
-      // Contoh validasi sederhana (username: admin, password: 12345)
-      if (username === 'admin' && password === '123') {
-  localStorage.setItem('name', username);
-  localStorage.setItem('password', username + '@rajaminyak.com'); // atau email dummy
-  localStorage.setItem('rajaMinyakLoggedIn', 'true');
-  window.location.href = 'index.html';
-}
+    if (username === 'admin' && email === 'admin@gmail.com') {
+      localStorage.setItem('name', username);
+      localStorage.setItem('email', email);
+      localStorage.setItem('rajaMinyakLoggedIn', 'true');
+      window.location.href = 'index.html';
+    } else if (username === 'user' && email === 'user@gmail.com') {
+      localStorage.setItem('name', username);
+      localStorage.setItem('email', email);
+      localStorage.setItem('rajaMinyakLoggedIn', 'true');
+      window.location.href = 'index.html';
+    } else {
+      errorMsg.textContent = 'Username atau email salah!';
     }
-  </script>
+  }
+
+  // Auto-redirect jika sudah login
+  if (localStorage.getItem('rajaMinyakLoggedIn') === 'true') {
+    window.location.href = 'index.html';
+  }
+</script>
 </body>
 </html>
 

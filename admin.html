@@ -88,6 +88,16 @@
         tableBody.appendChild(row);
       });
     });
+    // Cek apakah sudah login
+if (localStorage.getItem("adminLoggedIn") !== "true") {
+  window.location.href = "admin_login.html";
+}
+    <button onclick="logoutAdmin()" style="position:fixed; top:20px; right:20px;">Logout</button>
+<script>
+  function logoutAdmin() {
+    localStorage.removeItem("adminLoggedIn");
+    window.location.href = "admin_login.html";
+  }
   </script>
 </body>
 </html>

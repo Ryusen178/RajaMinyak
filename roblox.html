@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,48 +7,77 @@
 <body>
   <header><h1>Roblox</h1></header>
   <main>
-    <form action="success.html">
+    <form onsubmit="return false;">
       <label>ID Pengguna:</label>
-      <input type="text" required>
+      <input type="text" id="userId" required>
+
       <label>Jumlah Top Up:</label>
-      <select>
-        <option value="1">80 Robux - Rp14.000</option>
-        <option value="2">325 Robux - Rp48.000</option>
-	<option value="3">810 Robux - Rp125.000</option>
+      <select id="jumlah">
+        <option value="80 Robux - Rp14.000">80 Robux - Rp14.000</option>
+        <option value="325 Robux - Rp48.000">325 Robux - Rp48.000</option>
+        <option value="810 Robux - Rp125.000">810 Robux - Rp125.000</option>
       </select>
+
       <label>Metode Pembayaran:</label>
-      <select>
-        <option>DANA</option>
-        <option>OVO</option>
-        <option>GoPay</option>
-        <option>ShopeePay</option>
+      <select id="metode">
+        <option value="DANA">DANA</option>
+        <option value="OVO">OVO</option>
+        <option value="GoPay">GoPay</option>
+        <option value="ShopeePay">ShopeePay</option>
       </select>
-      <button type="submit">Bayar Sekarang</button>
+
+      <button type="submit" id="btnBayar">Bayar Sekarang</button>
     </form>
   </main>
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyCbeUoMIrpsSFsaqhW8cS6xKiz2mnNc3XA",
-    authDomain: "rajaminyak-953c3.firebaseapp.com",
-    databaseURL: "https://rajaminyak-953c3-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "rajaminyak-953c3",
-    storageBucket: "rajaminyak-953c3.firebasestorage.app",
-    messagingSenderId: "445216862527",
-    appId: "1:445216862527:web:3f00f64ab7810cc0b6a38a",
-    measurementId: "G-4RY1V9KS83"
-  };
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-analytics.js";
+    import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-database.js";
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCbeUoMIrpsSFsaqhW8cS6xKiz2mnNc3XA",
+      authDomain: "rajaminyak-953c3.firebaseapp.com",
+      databaseURL: "https://rajaminyak-953c3-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "rajaminyak-953c3",
+      storageBucket: "rajaminyak-953c3.appspot.com",
+      messagingSenderId: "445216862527",
+      appId: "1:445216862527:web:3f00f64ab7810cc0b6a38a",
+      measurementId: "G-4RY1V9KS83"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getDatabase(app);
+
+    document.getElementById("btnBayar").addEventListener("click", () => {
+      const userId = document.getElementById("userId").value.trim();
+      const jumlah = document.getElementById("jumlah").value;
+      const metode = document.getElementById("metode").value;
+      const waktu = new Date().toLocaleString();
+
+      if (userId === "") {
+        alert("Harap isi ID Pengguna.");
+        return;
+      }
+
+      const transaksiRef = ref(db, 'transaksi/roblox');
+      const newTransaksi = push(transaksiRef);
+
+      set(newTransaksi, {
+        userId: userId,
+        jumlah: jumlah,
+        metode: metode,
+        waktu: waktu
+      }).then(() => {
+        alert("Transaksi berhasil disimpan!");
+        window.location.href = "success.html";
+      }).catch((error) => {
+        console.error("Gagal menyimpan:", error);
+        alert("Terjadi kesalahan saat menyimpan data.");
+      });
+    });
+  </script>
 </body>
 </html>
+

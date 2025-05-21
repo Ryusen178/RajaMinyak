@@ -65,7 +65,7 @@
       background: #f9f9f9;
     }
 
-    form input, form button {
+    form input, form select, form button {
       display: block;
       width: 100%;
       margin-bottom: 15px;
@@ -84,6 +84,31 @@
     form button:hover {
       background-color: #218838;
     }
+
+    .game-list {
+      display: flex;
+      gap: 20px;
+      margin: 20px auto;
+      max-width: 600px;
+      justify-content: center;
+    }
+
+    .game-card {
+      cursor: pointer;
+      width: 150px;
+      text-align: center;
+    }
+
+    .game-card img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+
+    .game-card img:hover {
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
@@ -96,26 +121,61 @@
 
   <main>
     <div class="game-list">
-      <!-- Kartu game -->
-      <!-- (tidak saya ubah, tetap seperti milikmu) -->
       <div class="game-card" onclick="location.href='genshin.html'">
-        <img src="genshin.jpg" onclick="event.stopPropagation(); showPopup('genshin.jpg')" />
+        <img src="genshin.jpg" onclick="event.stopPropagation(); showPopup('genshin.jpg')" alt="Genshin Impact" />
         <h3>Genshin Impact</h3>
       </div>
-      <!-- game lainnya menyusul -->
+      <div class="game-card" onclick="location.href='deltaforce.html'">
+        <img src="deltaforce.jpg" onclick="event.stopPropagation(); showPopup('deltaforce.jpg')" />
+        <h3>Delta Force</h3>
+      </div>
+      <div class="game-card" onclick="location.href='honkai.html'">
+        <img src="honkai.jpg" onclick="event.stopPropagation(); showPopup('honkai.jpg')" />
+        <h3>Honkai Impact</h3>
+      </div>
+      <div class="game-card" onclick="location.href='freefire.html'">
+        <img src="freefire.jpg" onclick="event.stopPropagation(); showPopup('freefire.jpg')" />
+        <h3>Free Fire</h3>
+      </div>
+      <div class="game-card" onclick="location.href='pubgmobile.html'">
+        <img src="pubg.jpg" onclick="event.stopPropagation(); showPopup('pubg.jpg')" />
+        <h3>Pubg Mobile</h3>
+      </div>
+      <div class="game-card" onclick="location.href='hok.html'">
+        <img src="hok.jpg" onclick="event.stopPropagation(); showPopup('hok.jpg')" />
+        <h3>Honor of Kings</h3>
+      </div>
+      <div class="game-card" onclick="location.href='roblox.html'">
+        <img src="roblox.jpg" onclick="event.stopPropagation(); showPopup('roblox.jpg')" />
+        <h3>Roblox</h3>
+      </div>
+      <!-- Tambah game lain sesuai kebutuhan -->
     </div>
 
     <!-- FORM TOP UP -->
     <form id="formTopup">
       <h2>Form Top Up</h2>
+
+      <label for="pilihGame">Pilih Game:</label>
+      <select id="pilihGame" required>
+        <option value="">-- Pilih Game --</option>
+        <option value="Genshin Impact">Genshin Impact</option>
+        <option value="Delta Force">Delta Force</option>
+        <option value="Honkai Impact">Honkai Impact</option>
+        <option value="Free Fire">Free Fire</option>
+        <option value="Pubg Mobile">Pubg Mobile</option>
+        <option value="Honor of Kings">Honor of Kings</option>
+        <option value="Roblox">Roblox</option>
+      </select>
+
       <input type="text" id="idGame" placeholder="Masukkan ID Game" required>
-      <input type="number" id="jumlah" placeholder="Jumlah Diamond / UC / Coin" required>
+      <input type="number" id="jumlah" placeholder="Jumlah Diamond / UC / Coin" required min="1">
       <button type="submit">Kirim Transaksi</button>
     </form>
   </main>
 
   <div id="popup" class="popup" onclick="closePopup()">
-    <img id="popup-img" src="">
+    <img id="popup-img" src="" alt="Popup Image">
   </div>
 
   <!-- Firebase SDK -->
@@ -137,17 +197,37 @@
 
     document.getElementById("formTopup").addEventListener("submit", function(e) {
       e.preventDefault();
-      const idGame = document.getElementById("idGame").value;
+
+      const game = document.getElementById("pilihGame").value;
+      const idGame = document.getElementById("idGame").value.trim();
       const jumlah = document.getElementById("jumlah").value;
 
-      db.ref("transaksi").push({
-        idGame: idGame,
-        jumlah: jumlah,
-        waktu: new Date().toISOString()
-      });
+      if (!game) {
+        alert("Silakan pilih game terlebih dahulu.");
+        return;
+      }
 
-      alert("Transaksi berhasil dikirim!");
-      this.reset();
+      if (!idGame) {
+        alert("ID Game harus diisi.");
+        return;
+      }
+
+      if (jumlah <= 0) {
+        alert("Jumlah harus lebih dari 0.");
+        return;
+      }
+
+      db.ref("transaksi").push({
+        game: game,
+        idGame: idGame,
+        jumlah: parseInt(jumlah),
+        waktu: new Date().toISOString()
+      }).then(() => {
+        alert("Transaksi berhasil dikirim!");
+        this.reset();
+      }).catch((error) => {
+        alert("Gagal mengirim transaksi: " + error.message);
+      });
     });
   </script>
 </body>

@@ -27,5 +27,29 @@
       <button type="submit">Bayar Sekarang</button>
     </form>
   </main>
+	<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyCbeUoMIrpsSFsaqhW8cS6xKiz2mnNc3XA",
+    authDomain: "rajaminyak-953c3.firebaseapp.com",
+    databaseURL: "https://rajaminyak-953c3-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "rajaminyak-953c3",
+    storageBucket: "rajaminyak-953c3.firebasestorage.app",
+    messagingSenderId: "445216862527",
+    appId: "1:445216862527:web:3f00f64ab7810cc0b6a38a",
+    measurementId: "G-4RY1V9KS83"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 </body>
 </html>

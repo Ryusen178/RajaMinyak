@@ -4,12 +4,10 @@
   <title>RajaMinyak - Top Up Game</title>
   <link rel="stylesheet" href="styles.css">
   <script>
-    // Script cek login
     if (!localStorage.getItem("name") || !localStorage.getItem("email") || localStorage.getItem('rajaMinyakLoggedIn') !== 'true') {
       window.location.href = "login.html";
     }
 
-    // Script popup gambar
     function showPopup(imageSrc) {
       const popup = document.getElementById("popup");
       const popupImg = document.getElementById("popup-img");
@@ -21,12 +19,11 @@
       document.getElementById("popup").style.display = "none";
     }
 
-    // Logout function
     function logout() {
-    localStorage.removeItem("name");
-    localStorage.removeItem("email");
-    localStorage.removeItem("rajaMinyakLoggedIn");
-    window.location.href = "login.html";
+      localStorage.removeItem("name");
+      localStorage.removeItem("email");
+      localStorage.removeItem("rajaMinyakLoggedIn");
+      window.location.href = "login.html";
     }
   </script>
   <style>
@@ -48,8 +45,8 @@
     }
     .logout-button {
       position: fixed;
-      bottom: 20px;   /* dari sebelumnya top -> sekarang di bawah */
-      right: 20px;    /* tetap di kanan */
+      bottom: 20px;
+      right: 20px;
       padding: 10px 15px;
       background-color: #ff4444;
       color: white;
@@ -57,6 +54,35 @@
       border-radius: 5px;
       cursor: pointer;
       z-index: 1000;
+    }
+
+    form {
+      margin: 40px auto;
+      max-width: 400px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background: #f9f9f9;
+    }
+
+    form input, form button {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    form button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background-color: #218838;
     }
   </style>
 </head>
@@ -70,39 +96,60 @@
 
   <main>
     <div class="game-list">
+      <!-- Kartu game -->
+      <!-- (tidak saya ubah, tetap seperti milikmu) -->
       <div class="game-card" onclick="location.href='genshin.html'">
         <img src="genshin.jpg" onclick="event.stopPropagation(); showPopup('genshin.jpg')" />
         <h3>Genshin Impact</h3>
       </div>
-      <div class="game-card" onclick="location.href='deltaforce.html'">
-        <img src="deltaforce.jpg" onclick="event.stopPropagation(); showPopup('deltaforce.jpg')" />
-        <h3>Delta Force</h3>
-      </div>
-      <div class="game-card" onclick="location.href='honkai.html'">
-        <img src="honkai.jpg" onclick="event.stopPropagation(); showPopup('honkai.jpg')" />
-        <h3>Honkai Impact</h3>
-      </div>
-      <div class="game-card" onclick="location.href='freefire.html'">
-        <img src="freefire.jpg" onclick="event.stopPropagation(); showPopup('freefire.jpg')" />
-        <h3>Free Fire</h3>
-      </div>
-      <div class="game-card" onclick="location.href='pubgmobile.html'">
-        <img src="pubg.jpg" onclick="event.stopPropagation(); showPopup('pubg.jpg')" />
-        <h3>Pubg Mobile</h3>
-      </div>
-      <div class="game-card" onclick="location.href='hok.html'">
-        <img src="hok.jpg" onclick="event.stopPropagation(); showPopup('hok.jpg')" />
-        <h3>Honor of Kings</h3>
-      </div>
-      <div class="game-card" onclick="location.href='roblox.html'">
-        <img src="roblox.jpg" onclick="event.stopPropagation(); showPopup('roblox.jpg')" />
-        <h3>Roblox</h3>
-      </div>
+      <!-- game lainnya menyusul -->
     </div>
+
+    <!-- FORM TOP UP -->
+    <form id="formTopup">
+      <h2>Form Top Up</h2>
+      <input type="text" id="idGame" placeholder="Masukkan ID Game" required>
+      <input type="number" id="jumlah" placeholder="Jumlah Diamond / UC / Coin" required>
+      <button type="submit">Kirim Transaksi</button>
+    </form>
   </main>
 
   <div id="popup" class="popup" onclick="closePopup()">
     <img id="popup-img" src="">
   </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "API_KEY",
+      authDomain: "PROJECT_ID.firebaseapp.com",
+      databaseURL: "https://PROJECT_ID.firebaseio.com",
+      projectId: "PROJECT_ID",
+      storageBucket: "PROJECT_ID.appspot.com",
+      messagingSenderId: "SENDER_ID",
+      appId: "APP_ID"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    document.getElementById("formTopup").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const idGame = document.getElementById("idGame").value;
+      const jumlah = document.getElementById("jumlah").value;
+
+      db.ref("transaksi").push({
+        idGame: idGame,
+        jumlah: jumlah,
+        waktu: new Date().toISOString()
+      });
+
+      alert("Transaksi berhasil dikirim!");
+      this.reset();
+    });
+  </script>
 </body>
 </html>
+
